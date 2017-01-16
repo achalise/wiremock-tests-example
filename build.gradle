@@ -1,0 +1,42 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+		flatDir {
+			dirs "$rootProject.projectDir/libs"
+		}
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'wiremock-tests'
+	version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	flatDir {
+		dirs "$rootProject.projectDir/libs"
+	}
+}
+
+
+dependencies {
+	compile fileTree(include: ['*.jar'], dir: 'libs')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile ('commons-io:commons-io:2.4')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile("com.github.tomakehurst:wiremock:2.5.0")
+
+}
